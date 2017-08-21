@@ -45,6 +45,39 @@ h3 {
     padding: 18px 0 7px;
 }
 
+.panel header p {
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 680px;
+}
+
+.panel nav {
+    display: flex;
+    overflow-y: auto;
+}
+
+.panel nav a {
+    color: #9da2a6;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.panel nav a.active {
+    color: #288BC6;
+}
+
+.panel nav a.active svg path {
+    fill: #288BC6
+}
+
+.panel nav span {
+    display: block;
+}
+
 .panel section {
     padding: 0 20px;
     position: relative;
