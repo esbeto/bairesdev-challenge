@@ -47,11 +47,18 @@ h3 {
 
 .panel section {
     padding: 0 20px;
+    position: relative;
 }
 
 .panel h3 {
     font-size: 22px;
     margin: 1.2em 0 0;
+}
+
+.anchor {
+    display: block;
+    height: 1px;
+    position: absolute;
 }
 
 @media screen and (min-width: 600px) {
