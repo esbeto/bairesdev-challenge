@@ -61,6 +61,28 @@ h3 {
     position: absolute;
 }
 
+.tips {
+    color: #42484C;
+    list-style: none;
+    padding: 0;
+}
+
+.tips li {
+    padding: 7px 10px 7px 30px;
+    position: relative;
+}
+
+.tips li::before {
+    background-image: url("./icons/checkmark.svg");
+    background-repeat: no-repeat;
+    content: "";
+    height: 20px;
+    left: 0;
+    top: 7px;
+    position: absolute;
+    width: 20px;
+}
+
 @media screen and (min-width: 600px) {
     .panel .title {
         font-size: 26px;
