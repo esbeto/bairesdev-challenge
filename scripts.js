@@ -25,7 +25,7 @@ function scrollTo(destination) {
 
     const destinationBounds = destination.getBoundingClientRect();
 
-    const destinationOffset = destinationBounds.top;
+    const destinationOffset = destinationBounds.top + window.pageYOffset;
 
     const destinationOffsetToScroll = Math.round(
         documentHeight - destinationOffset < windowHeight ?
