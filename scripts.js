@@ -52,9 +52,11 @@ function scrollTo(destination, targetId) {
             return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
         };
 
+        const pageYOffset = Math.round(window.pageYOffset + 1);
+
         window.scroll(0, Math.ceil((timeFunction(time) * (destinationOffsetToScroll - start)) + start));
 
-        if (window.pageYOffset === destinationOffsetToScroll) {
+        if (pageYOffset >= destinationOffsetToScroll) {
             window.location.hash = targetId;
             return;
         }
