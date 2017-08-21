@@ -144,9 +144,63 @@ h3 {
     width: 20px;
 }
 
+@media screen and (min-width: 470px) {
+    .panel nav {
+        justify-content: space-around;
+    }
+
+    .panel nav a:last-child {
+        padding-right: 10px;
+    }
+
+    .panel header::after {
+        display: none;
+    }
+}
+
 @media screen and (min-width: 600px) {
     .panel .title {
         font-size: 26px;
-        padding: 13px 0;
+        padding: 17px 0 16px;
+    }
+
+    .panel nav svg {
+        height: 48px;
+        padding: 10px 0;
+    }
+
+    .panel nav a {
+        font-size: 13px;
+        padding-bottom: 14px;
+    }
+
+    .panel nav span {
+        padding: 2px 0;
+    }
+
+    .tips {
+        column-count: 2;
+    }
+
+    .tips li {
+        break-inside: avoid;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    html {
+        font-size: 15px;
+    }
+
+    .tips {
+        font-size: 13px;
+    }
+
+    .panel h3 {
+        font-size: 26px;
+    }
+
+    .panel p {
+        padding-right: 40px;
     }
 }
