@@ -5,7 +5,7 @@
  * Browser Support:
  * http://caniuse.com/#feat=requestanimationframe
  */
-function scrollTo(destination) {
+function scrollTo(destination, targetId) {
     const start = window.pageYOffset;
 
     const startTime = 'now' in window.performance ?
@@ -34,6 +34,7 @@ function scrollTo(destination) {
 
     if ('requestAnimationFrame' in window === false) {
         window.scroll(0, destinationOffsetToScroll);
+        window.location.hash = targetId;
         return;
     }
 
@@ -54,6 +55,7 @@ function scrollTo(destination) {
         window.scroll(0, Math.ceil((timeFunction(time) * (destinationOffsetToScroll - start)) + start));
 
         if (window.pageYOffset === destinationOffsetToScroll) {
+            window.location.hash = targetId;
             return;
         }
 
@@ -69,6 +71,8 @@ function scrollTo(destination) {
 function navigateTo(targetId) {
     const element = document.querySelector(targetId);
     scrollTo(element);
+
+    scrollTo(element, targetId);
 }
 
 /**
