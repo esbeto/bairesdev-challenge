@@ -1,19 +1,25 @@
 html {
     background-color: #F0F3F5;
     color: #737A80;
-    font-family: 'Helvetica', Arial, sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
     font-size: 14px;
+    line-height: 1.43;
 }
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 15px 0;
 }
 
-h1, h2, h3 {
+h2, h3 {
     color: #363C40;
     font-weight: 300;
+    line-height: 1;
     margin: 0;
+}
+
+h3 {
+    line-height: 1.2;
 }
 
 .panel {
@@ -38,6 +44,11 @@ h1, h2, h3 {
 
 .panel section {
     padding: 0 20px;
+}
+
+.panel h3 {
+    font-size: 22px;
+    margin: 1.2em 0 0;
 }
 
 @media screen and (min-width: 600px) {
