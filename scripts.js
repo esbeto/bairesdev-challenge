@@ -70,7 +70,14 @@ function scrollTo(destination, targetId) {
  */
 function navigateTo(targetId) {
     const element = document.querySelector(targetId);
-    scrollTo(element);
+    const sourceLink = document.querySelector('[href="' + targetId + '"]');
+    const panelLinks = document.querySelectorAll('.panel nav a');
+
+    for (let i = 0; i < panelLinks.length ; i++) {
+        panelLinks[i].classList.remove('active');
+    }
+
+    sourceLink.classList.add('active');
 
     scrollTo(element, targetId);
 }
