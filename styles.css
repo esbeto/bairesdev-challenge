@@ -36,6 +36,7 @@ h3 {
 .panel header {
     background-color: #FFF;
     border-top: 8px solid #2F8CC4;
+    position: relative;
 }
 
 .panel .title {
@@ -46,6 +47,7 @@ h3 {
 }
 
 .panel header p {
+    margin-bottom: 0;
     margin-left: 20px;
     margin-right: 20px;
     max-width: 680px;
@@ -54,16 +56,37 @@ h3 {
 .panel nav {
     display: flex;
     overflow-y: auto;
+    position: relative;
+}
+
+.panel header::after {
+    background-image: linear-gradient(to left, #FFF, rgba(255, 255, 255, 0));
+    bottom: 0;
+    content: "";
+    height: 74px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    width: 130px;
+}
+
+.panel nav svg {
+    height: 36px;
+    width: auto;
 }
 
 .panel nav a {
     color: #9da2a6;
     font-size: 11px;
-    font-weight: bold;
+    font-weight: 500;
     padding: 10px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
+}
+
+.panel nav a:last-child {
+    padding-right: 120px;
 }
 
 .panel nav a.active {
@@ -96,6 +119,7 @@ h3 {
     display: block;
     height: 1px;
     position: absolute;
+    top: -20px;
 }
 
 .tips {
@@ -115,8 +139,8 @@ h3 {
     content: "";
     height: 20px;
     left: 0;
-    top: 7px;
     position: absolute;
+    top: 7px;
     width: 20px;
 }
 
