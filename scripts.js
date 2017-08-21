@@ -69,7 +69,17 @@ function scrollTo(destination) {
 function navigateTo(targetId) {
     const element = document.querySelector(targetId);
     scrollTo(element);
+}
 
-    // Prevent default browser anchor behavior
-    return false;
+/**
+ * Prevent Safari double scroll
+ */
+function preventDefaultBehavior(event) {
+    event.preventDefault();
+}
+
+const panelLinks = document.querySelectorAll('.panel nav a');
+
+for (let i = 0; i < panelLinks.length ; i++) {
+    panelLinks[i].addEventListener('click', preventDefaultBehavior, false);
 }
