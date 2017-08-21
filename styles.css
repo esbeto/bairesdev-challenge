@@ -25,21 +25,24 @@ h3 {
 .panel {
     background-color: #F7FAFC;
     border: 1px solid #DEE1E3;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     border-top: 2px solid #5EB0DE;
-    margin: 5px auto;
+    box-shadow: 0 2px 0 -1px #E9ECEE;
+    margin: 25px auto;
     max-width: 910px;
 }
 
 .panel header {
     background-color: #FFF;
     border-top: 8px solid #2F8CC4;
-    padding: 0 20px;
 }
 
 .panel .title {
     border-bottom: 2px solid #DAE1E6;
     font-size: 22px;
-    padding: 17px 0 5px;
+    margin: 0 20px;
+    padding: 18px 0 7px;
 }
 
 .panel section {
