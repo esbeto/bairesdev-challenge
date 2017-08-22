@@ -96,3 +96,26 @@ const panelLinks = document.querySelectorAll('.panel nav a');
 for (let i = 0; i < panelLinks.length ; i++) {
     panelLinks[i].addEventListener('click', preventDefaultBehavior, false);
 }
+
+/**
+ * Scrolling function for sticky section headers
+ */
+function scrollBrain() {
+    const pageYOffset = Math.round(window.pageYOffset + 1);
+    for (let i = 0; i < articles.length ; i++) {
+        const articleHeader = articles[i].querySelector('header');
+        const articleHeaderBounds = articleHeader.getBoundingClientRect();
+        const articleBounds = articles[i].getBoundingClientRect();
+        const articleOffset = Math.round(articleBounds.top + window.pageYOffset);
+        const articleBottom = Math.round(articleOffset + articleBounds.height - articleHeaderBounds.height);
+        articleHeader.style.width = articleBounds.width + 'px';
+
+        if (pageYOffset >= articleOffset && pageYOffset <= articleBottom) {
+            articleHeader.classList.add('fixed');
+        } else {
+            articleHeader.classList.remove('fixed');
+        }
+    }
+}
+
+// window.addEventListener("scroll", scrollBrain, false);
