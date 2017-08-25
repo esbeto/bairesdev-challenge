@@ -102,20 +102,24 @@ for (let i = 0; i < panelLinks.length ; i++) {
  */
 function scrollBrain() {
     const pageYOffset = Math.round(window.pageYOffset + 1);
+    const articles = document.querySelectorAll('.panel');
     for (let i = 0; i < articles.length ; i++) {
         const articleHeader = articles[i].querySelector('header');
         const articleHeaderBounds = articleHeader.getBoundingClientRect();
         const articleBounds = articles[i].getBoundingClientRect();
         const articleOffset = Math.round(articleBounds.top + window.pageYOffset);
         const articleBottom = Math.round(articleOffset + articleBounds.height - articleHeaderBounds.height);
-        articleHeader.style.width = articleBounds.width + 'px';
+        articleHeader.style.width = articles[i].clientWidth + 'px';
 
-        if (pageYOffset >= articleOffset && pageYOffset <= articleBottom) {
+        if (pageYOffset >= articleOffset && pageYOffset <= articleBottom - 40) {
             articleHeader.classList.add('fixed');
+            articleHeader.nextElementSibling.style.marginTop = articleHeader.clientHeight + 'px';
         } else {
             articleHeader.classList.remove('fixed');
+            articleHeader.nextElementSibling.style.marginTop = 0;
         }
     }
 }
 
-// window.addEventListener("scroll", scrollBrain, false);
+window.addEventListener('scroll', scrollBrain, false);
+window.addEventListener('resize', scrollBrain, false);

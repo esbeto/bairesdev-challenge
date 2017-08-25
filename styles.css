@@ -36,12 +36,12 @@ h3 {
 .panel header {
     background-color: #FFF;
     border-top: 8px solid #2F8CC4;
-    position: relative;
+    width: 100%;
 }
 
 .panel .title {
     border-bottom: 2px solid #DAE1E6;
-    font-size: 22px;
+    font-size: 21px;
     margin: 0 20px;
     padding: 18px 0 7px;
 }
@@ -55,45 +55,36 @@ h3 {
 
 .panel nav {
     display: flex;
+    flex-wrap: wrap;
     overflow-y: auto;
+    padding: 5px 0;
     position: relative;
+    justify-content: space-around;
 }
 
-.panel header::after {
-    background-image: linear-gradient(to left, #FFF, rgba(255, 255, 255, 0));
-    bottom: 0;
-    content: "";
-    height: 74px;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    width: 130px;
-}
-
-.panel nav svg {
-    height: 36px;
+.panel svg {
+    height: 26px;
+    transition: height 200ms ease;
     width: auto;
 }
 
 .panel nav a {
+    box-sizing: border-box;
     color: #9da2a6;
+    flex-basis: 25%;
     font-size: 11px;
     font-weight: 500;
-    padding: 10px;
+    padding: 3px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
 }
 
-.panel nav a:last-child {
-    padding-right: 120px;
-}
-
-.panel nav a.active {
+.panel a.active {
     color: #288BC6;
 }
 
-.panel nav a.active svg path {
+.panel a.active svg path {
     fill: #288BC6
 }
 
@@ -111,15 +102,18 @@ h3 {
     margin: 1.2em 0 0;
 }
 
-.panel h3 + p {
+.panel p:first-of-type {
     margin-top: 0.5em;
 }
 
 .anchor {
     display: block;
-    height: 1px;
+    height: 150px;
+    left: 0;
     position: absolute;
-    top: -20px;
+    top: -170px;
+    width: 100%;
+    z-index: -1;
 }
 
 .tips {
@@ -144,17 +138,39 @@ h3 {
     width: 20px;
 }
 
+header.fixed {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+header.fixed p {
+    display: none;
+}
+
+header.fixed nav a {
+    font-size: 11px;
+    padding: 0;
+}
+
+header.fixed nav svg {
+    height: 26px;
+    padding: 0;
+}
+
+header.fixed .title {
+    font-size: 21px;
+    padding: 18px 0 7px;
+}
+
 @media screen and (min-width: 470px) {
-    .panel nav {
-        justify-content: space-around;
+    .panel nav a {
+        flex-basis: auto;
     }
 
-    .panel nav a:last-child {
-        padding-right: 10px;
-    }
-
-    .panel header::after {
-        display: none;
+    .anchor {
+        height: 104px;
+        top: -124px;
     }
 }
 
@@ -164,7 +180,7 @@ h3 {
         padding: 17px 0 16px;
     }
 
-    .panel nav svg {
+    .panel svg {
         height: 48px;
         padding: 10px 0;
     }
@@ -172,10 +188,6 @@ h3 {
     .panel nav a {
         font-size: 13px;
         padding-bottom: 14px;
-    }
-
-    .panel nav span {
-        padding: 2px 0;
     }
 
     .tips {
