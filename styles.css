@@ -71,10 +71,10 @@ h3 {
 .panel nav a {
     box-sizing: border-box;
     color: #9da2a6;
-    flex-basis: 25%;
+    flex-basis: 33.3333%;
     font-size: 11px;
     font-weight: 500;
-    padding: 3px;
+    padding: 5px 3px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
@@ -108,10 +108,10 @@ h3 {
 
 .anchor {
     display: block;
-    height: 150px;
+    height: 1px;
     left: 0;
     position: absolute;
-    top: -170px;
+    top: -205px;
     width: 100%;
     z-index: -1;
 }
@@ -153,7 +153,7 @@ header.sticky p {
 
 header.sticky nav a {
     font-size: 11px;
-    padding: 0;
+    padding: 5px 3px;
 }
 
 header.sticky nav svg {
@@ -173,14 +173,19 @@ header.sticky.active {
     z-index: 10;
 }
 
+@media screen and (min-width: 348px) {
+    .anchor {
+        top: -190px;
+    }
+}
+
 @media screen and (min-width: 470px) {
     .panel nav a {
         flex-basis: auto;
     }
 
     .anchor {
-        height: 104px;
-        top: -124px;
+        top: -135px;
     }
 }
 
