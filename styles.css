@@ -138,29 +138,39 @@ h3 {
     width: 20px;
 }
 
-header.fixed {
-    position: fixed;
+header.sticky {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    opacity: 0;
     top: 0;
-    z-index: 10;
+    position: fixed;
+    pointer-events: none;
+    transition: all 200ms ease;
 }
 
-header.fixed p {
+header.sticky p {
     display: none;
 }
 
-header.fixed nav a {
+header.sticky nav a {
     font-size: 11px;
     padding: 0;
 }
 
-header.fixed nav svg {
+header.sticky nav svg {
     height: 26px;
     padding: 0;
 }
 
-header.fixed .title {
+header.sticky .title {
     font-size: 21px;
     padding: 18px 0 7px;
+}
+
+header.sticky.active {
+    opacity: 1;
+    pointer-events: auto;
+    top: 0;
+    z-index: 10;
 }
 
 @media screen and (min-width: 470px) {
