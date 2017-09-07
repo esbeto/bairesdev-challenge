@@ -52,11 +52,13 @@ function scrollTo(destination, targetId) {
             return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
         };
 
-        const pageYOffset = Math.round(window.pageYOffset + 1);
+        const currentPosition = Math.ceil((timeFunction(time) * (destinationOffsetToScroll - start)) + start);
 
-        window.scroll(0, Math.ceil((timeFunction(time) * (destinationOffsetToScroll - start)) + start));
+        window.scroll(0, currentPosition);
 
-        if (pageYOffset >= destinationOffsetToScroll) {
+        const approximation = Math.abs(currentPosition - destinationOffsetToScroll);
+
+        if (approximation < 2) {
             window.location.hash = targetId;
             return;
         }
@@ -72,14 +74,16 @@ function scrollTo(destination, targetId) {
  */
 function navigateTo(targetId) {
     const element = document.querySelector(targetId);
-    const sourceLink = document.querySelector('[href="' + targetId + '"]');
+    const sourceLinks = document.querySelectorAll('[href="' + targetId + '"]');
     const panelLinks = document.querySelectorAll('.panel nav a');
 
     for (let i = 0; i < panelLinks.length ; i++) {
         panelLinks[i].classList.remove('active');
     }
 
-    sourceLink.classList.add('active');
+    for (let i = 0; i < sourceLinks.length ; i++) {
+        sourceLinks[i].classList.add('active');
+    }
 
     scrollTo(element, targetId);
 }
@@ -87,14 +91,31 @@ function navigateTo(targetId) {
 /**
  * Prevent Safari double scroll
  */
-function preventDefaultBehavior(event) {
-    event.preventDefault();
+function preventSafariDoubleScroll() {
+    const panelLinks = document.querySelectorAll('.panel nav a');
+
+    for (let i = 0; i < panelLinks.length ; i++) {
+        panelLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+        }, true);
+    }
 }
 
-const panelLinks = document.querySelectorAll('.panel nav a');
+/**
+ * Copy the header to prevent jagged scrolling effect
+ */
+function prepareStickyHeader() {
+    const articles = document.querySelectorAll('.panel');
 
-for (let i = 0; i < panelLinks.length ; i++) {
-    panelLinks[i].addEventListener('click', preventDefaultBehavior, false);
+    for (let i = 0; i < articles.length ; i++) {
+        const articleHeader = articles[i].querySelector('header');
+        const firstSection = articles[i].querySelector('section');
+        const articleStickyHeader = articleHeader.cloneNode(true);
+
+        articleStickyHeader.classList.add('sticky');
+
+        articles[i].insertBefore(articleStickyHeader, firstSection);
+    }
 }
 
 /**
@@ -103,23 +124,41 @@ for (let i = 0; i < panelLinks.length ; i++) {
 function scrollBrain() {
     const pageYOffset = Math.round(window.pageYOffset + 1);
     const articles = document.querySelectorAll('.panel');
+
     for (let i = 0; i < articles.length ; i++) {
         const articleHeader = articles[i].querySelector('header');
         const articleHeaderBounds = articleHeader.getBoundingClientRect();
+        const articleStickyHeader = articles[i].querySelector('.sticky');
+        const articleStickyHeaderBounds = articleStickyHeader.getBoundingClientRect();
         const articleBounds = articles[i].getBoundingClientRect();
-        const articleOffset = Math.round(articleBounds.top + window.pageYOffset);
-        const articleBottom = Math.round(articleOffset + articleBounds.height - articleHeaderBounds.height);
-        articleHeader.style.width = articles[i].clientWidth + 'px';
+        // Just enough height to show the sticky header when navigating to the first menu item
+        const articleOffset = Math.round(
+            articleBounds.top + articleHeaderBounds.height +
+            window.pageYOffset - articleStickyHeaderBounds.height
+        );
+        // Just enough height to hide the sticky header when leaving the panel
+        const articleBottom = Math.round(
+            articleOffset + articleBounds.height -
+            articleHeaderBounds.height - articleStickyHeaderBounds.height
+        );
 
-        if (pageYOffset >= articleOffset && pageYOffset <= articleBottom - 40) {
-            articleHeader.classList.add('fixed');
-            articleHeader.nextElementSibling.style.marginTop = articleHeader.clientHeight + 'px';
+        // Position fixed isn't aware of parent's width, so it is set here
+        articleStickyHeader.style.width = articles[i].clientWidth + 'px';
+
+        if (pageYOffset >= articleOffset && pageYOffset <= articleBottom) {
+            articleStickyHeader.classList.add('active');
         } else {
-            articleHeader.classList.remove('fixed');
-            articleHeader.nextElementSibling.style.marginTop = 0;
+            articleStickyHeader.classList.remove('active');
         }
     }
 }
 
-window.addEventListener('scroll', scrollBrain, false);
-window.addEventListener('resize', scrollBrain, false);
+document.addEventListener("DOMContentLoaded", function(event) {
+    // Preparations
+    preventSafariDoubleScroll();
+    prepareStickyHeader();
+
+    // Scrolling Behavior
+    window.addEventListener('scroll', scrollBrain, false);
+    window.addEventListener('resize', scrollBrain, false);
+});
